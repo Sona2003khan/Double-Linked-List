@@ -1,0 +1,55 @@
+public class LinkedList_double_1 {
+    public int val;
+    LinkedList_double_1 next;
+    LinkedList_double_1 prev;
+    public LinkedList_double_1(int x){
+        this.val=x;
+        this.next=null;
+        this.prev=null;
+    }
+
+    public static LinkedList_double_1 prLinkedList_double_1(LinkedList_double_1 node){
+        if(node == null || node.next == null){
+            return node;
+        }
+        LinkedList_double_1 ptr=node;
+        while (node.prev != null) {
+            node=node.prev;
+        }
+        while (node != null) {
+            System.out.print(node.val+"->");
+            node=node.next;
+        }
+        System.out.print("null");
+        return ptr;
+    }
+
+/*public static void printRecursive(LinkedList_double_1 node) {                            //O(n) using recursion
+    if (node == null) {
+        System.out.print("null");
+        return;
+    }
+    System.out.print(node.val + "->");
+    printRecursive(node.next);
+}*/
+    public static void main(String[] args) {
+        LinkedList_double_1 l1=new LinkedList_double_1(3);
+        LinkedList_double_1 l2=new LinkedList_double_1(9);
+        LinkedList_double_1 l3=new LinkedList_double_1(2);
+        LinkedList_double_1 l4=new LinkedList_double_1(7);
+        LinkedList_double_1 l5=new LinkedList_double_1(1);
+        l1.next=l2;
+        l2.prev=l1;
+        l2.next=l3;
+        l3.prev=l2;
+        l3.next=l4;
+        l4.prev=l3;
+        l4.next=l5;
+        l5.prev=l4;
+
+        prLinkedList_double_1(l1);
+
+    }
+}
+//Time Complexity: O(n) – traverses backward to head and then forward to print all nodes.
+//Space Complexity: O(1) – uses constant extra space (no recursion or data structures).
