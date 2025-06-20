@@ -1,0 +1,113 @@
+public class LinkedList_double_3 {
+
+    public int val;
+    LinkedList_double_3 next;
+    LinkedList_double_3 prev;
+
+    public LinkedList_double_3(int x) {
+        this.val = x;
+        this.next = null;
+        this.prev = null;
+    }
+
+    // insert at start
+    public static LinkedList_double_3 insert_double_start(LinkedList_double_3 node, int val) {
+        LinkedList_double_3 newNode = new LinkedList_double_3(val);
+        if (node == null) return newNode;
+
+        while (node.prev != null) node = node.prev;
+
+        newNode.next = node;
+        node.prev = newNode;
+        return newNode;
+    }
+
+    // insert at end
+    public static LinkedList_double_3 insert_double_end(LinkedList_double_3 node, int val) {
+        LinkedList_double_3 newNode = new LinkedList_double_3(val);
+        if (node == null) return newNode;
+
+        LinkedList_double_3 head = node;
+        while (node.next != null) node = node.next;
+
+        node.next = newNode;
+        newNode.prev = node;
+        return head;
+    }
+
+    // insert at mid (at position 'pos', 0-based index)
+    public static LinkedList_double_3 insert_double_mid(LinkedList_double_3 node, int pos, int val) {
+        if (node == null) return new LinkedList_double_3(val);
+
+        LinkedList_double_3 head = node;
+        while (head.prev != null) head = head.prev;
+
+        if (pos == 0) return insert_double_start(head, val);
+
+        LinkedList_double_3 curr = head;
+        for (int i = 0; i < pos - 1 && curr != null; i++) {
+            curr = curr.next;
+        }
+
+        if (curr == null || curr.next == null) return insert_double_end(head, val);
+
+        LinkedList_double_3 newNode = new LinkedList_double_3(val);
+        newNode.next = curr.next;
+        newNode.prev = curr;
+        curr.next.prev = newNode;
+        curr.next = newNode;
+
+        return head;
+    }
+
+    // print the list from head to tail
+    public static void prLinkedList_double_1(LinkedList_double_3 node) {
+        if (node == null) return;
+
+        while (node.prev != null) node = node.prev;
+
+        while (node != null) {
+            System.out.print(node.val + "->");
+            node = node.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        LinkedList_double_3 l1 = new LinkedList_double_3(3);
+        LinkedList_double_3 l2 = new LinkedList_double_3(9);
+        LinkedList_double_3 l3 = new LinkedList_double_3(2);
+        LinkedList_double_3 l4 = new LinkedList_double_3(7);
+        LinkedList_double_3 l5 = new LinkedList_double_3(1);
+
+        // Connecting the initial list
+        l1.next = l2; l2.prev = l1;
+        l2.next = l3; l3.prev = l2;
+        l3.next = l4; l4.prev = l3;
+        l4.next = l5; l5.prev = l4;
+
+        // Insert at start
+        l1 = insert_double_start(l1, 0);
+        prLinkedList_double_1(l1);
+
+        // Insert at end
+        l1 = insert_double_end(l1, 6);
+        prLinkedList_double_1(l1);
+
+        // Insert at position 3
+        l1 = insert_double_mid(l1, 3, 4);
+        prLinkedList_double_1(l1);
+    }
+}
+
+/*Each function (insert at start, end, mid, and print) may traverse up to n nodes.
+
+So, all have a worst-case time complexity of O(n).
+
+Insertion itself is always done in O(1) after reaching the position.
+
+Space complexity is O(1) for all since no extra data structures are used.
+
+Only one new node is created per insert, which is constant space.
+
+✅ Final: Time = O(n), Space = O(1) for all functions.*/
