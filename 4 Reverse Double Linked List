@@ -1,0 +1,48 @@
+public class LinkedList_double_2 {
+   
+    public int val;
+    LinkedList_double_2 next;
+    LinkedList_double_2 prev;
+    public LinkedList_double_2(int x){
+        this.val=x;
+        this.next=null;
+        this.prev=null;
+    }
+
+    public static LinkedList_double_2 prLinkedList_double_2(LinkedList_double_2 node){
+        if(node == null || node.next == null){
+            return node;
+        }
+        LinkedList_double_2 ptr=node;
+        while (node.next != null) {
+            node=node.next;
+        }
+        while (node != null) {
+            System.out.print(node.val+"->");
+            node=node.prev;
+        }
+        System.out.print("null");
+        return ptr;
+    }
+
+    public static void main(String[] args) {
+        LinkedList_double_2 l1=new LinkedList_double_2(3);
+        LinkedList_double_2 l2=new LinkedList_double_2(9);
+        LinkedList_double_2 l3=new LinkedList_double_2(2);
+        LinkedList_double_2 l4=new LinkedList_double_2(7);
+        LinkedList_double_2 l5=new LinkedList_double_2(1);
+        l1.next=l2;
+        l2.prev=l1;
+        l2.next=l3;
+        l3.prev=l2;
+        l3.next=l4;
+        l4.prev=l3;
+        l4.next=l5;
+        l5.prev=l4;
+
+        prLinkedList_double_2(l1);
+
+    }
+}
+//Time Complexity: O(n) – traverses forward to tail, then backward to head.
+//Space Complexity: O(1) – uses constant extra space, no recursion or data structures used.
