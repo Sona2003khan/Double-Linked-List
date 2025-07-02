@@ -1,0 +1,76 @@
+public class LinkedList_double_7 {
+    public int val;
+    LinkedList_double_7 next;
+    LinkedList_double_7 prev;
+
+    public LinkedList_double_7(int x) {
+        this.val = x;
+        this.next = null;
+        this.prev = null;
+    }
+
+    public static LinkedList_double_7 Delete_duplicate_DLL(LinkedList_double_7 node) {
+        LinkedList_double_7 newNode = new LinkedList_double_7(-1);
+        newNode.next = node;
+
+        LinkedList_double_7 previous = newNode;
+        LinkedList_double_7 ptr = node;
+
+        while (ptr.prev != null) {
+            ptr = ptr.prev;
+        }
+
+        while (ptr != null) {
+            if (ptr.next != null && ptr.val == ptr.next.val) {
+                while (ptr.next != null && ptr.val == ptr.next.val) {
+                    ptr = ptr.next;
+                }
+                previous.next = ptr.next;
+                ptr.prev = previous;
+            } else {
+                previous = previous.next;
+            }
+            ptr = ptr.next;
+        }
+        return newNode.next;
+    }
+
+    public static LinkedList_double_7 prLinkedList_double_5(LinkedList_double_7 node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+        LinkedList_double_7 ptr = node;
+        while (node.prev != null) {
+            node = node.prev;
+        }
+        while (node != null) {
+            System.out.print(node.val + "->");
+            node = node.next;
+        }
+        System.out.print("null");
+        return ptr;
+    }
+
+    public static void main(String[] args) {
+        LinkedList_double_7 l1 = new LinkedList_double_7(3);
+        LinkedList_double_7 l2 = new LinkedList_double_7(2);
+        LinkedList_double_7 l3 = new LinkedList_double_7(2);
+        LinkedList_double_7 l4 = new LinkedList_double_7(7);
+        LinkedList_double_7 l5 = new LinkedList_double_7(3);
+        l1.next = l2;
+        l2.prev = l1;
+        l2.next = l3;
+        l3.prev = l2;
+        l3.next = l4;
+        l4.prev = l3;
+        l4.next = l5;
+        l5.prev = l4;
+
+        l1 = Delete_duplicate_DLL(l1);
+
+        prLinkedList_double_5(l1);
+
+    }
+}
+/*Time Complexity: O(n) — one pass through the list.
+Space Complexity: O(1) — in-place changes only.*/
