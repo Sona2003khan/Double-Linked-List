@@ -1,0 +1,84 @@
+public class LinkedList_double_5 {
+    public int val;
+    LinkedList_double_5 next;
+    LinkedList_double_5 prev;
+
+    public LinkedList_double_5(int x) {
+        this.val = x;
+        this.next = null;
+        this.prev = null;
+    }
+
+    public static LinkedList_double_5 Delete_all_occurrences_of_key_in_DLL(LinkedList_double_5 node, int val) {
+        LinkedList_double_5 head = node;
+        LinkedList_double_5 ptr = head;
+
+        while (ptr.prev != null) {
+            ptr = ptr.prev;
+        }
+
+        while (ptr != null) {
+            if (ptr.val == val) {
+
+                if (ptr.prev == null) {
+                    ptr = ptr.next;
+                    if (ptr != null)
+                        ptr.prev = null;
+
+                } else if (ptr.next == null) {
+                    ptr.prev.next = null;
+                    ptr = null;
+                } else {
+                    ptr.prev.next = ptr.next;
+                    ptr.next.prev = ptr.prev;
+                    ptr = ptr.next;
+                }
+
+            }
+
+            else {
+                ptr = ptr.next;
+            }
+        }
+        return head;
+    }
+
+    public static LinkedList_double_5 prLinkedList_double_5(LinkedList_double_5 node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+        LinkedList_double_5 ptr = node;
+        while (node.prev != null) {
+            node = node.prev;
+        }
+        while (node != null) {
+            System.out.print(node.val + "->");
+            node = node.next;
+        }
+        System.out.print("null");
+        return ptr;
+    }
+
+    public static void main(String[] args) {
+        LinkedList_double_5 l1 = new LinkedList_double_5(3);
+        LinkedList_double_5 l2 = new LinkedList_double_5(9);
+        LinkedList_double_5 l3 = new LinkedList_double_5(2);
+        LinkedList_double_5 l4 = new LinkedList_double_5(7);
+        LinkedList_double_5 l5 = new LinkedList_double_5(2);
+        l1.next = l2;
+        l2.prev = l1;
+        l2.next = l3;
+        l3.prev = l2;
+        l3.next = l4;
+        l4.prev = l3;
+        l4.next = l5;
+        l5.prev = l4;
+
+        l1 = Delete_all_occurrences_of_key_in_DLL(l1, 2);
+
+        prLinkedList_double_5(l1);
+
+    }
+}
+/*Time Complexity: O(n) — Each node is visited once to check and possibly delete.
+Space Complexity: O(1) — No extra space is used; operations are done in-place.*/
